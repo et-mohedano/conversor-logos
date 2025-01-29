@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -61,7 +62,7 @@
             const modelo = document.getElementById("modelo").value;
             const logoUrl = logos[dependencia][modelo];
             
-            document.getElementById("logo-container").innerHTML = `<img id="logo" src="${logoUrl}" alt="Logo" width="300" crossOrigin="anonymous">`;
+            document.getElementById("logo-container").innerHTML = `<img id="logo" src="${logoUrl}" alt="Logo" width="300">`;
         }
         
         function descargarLogo(formato) {
@@ -78,28 +79,32 @@
         }
         
         function descargarComoImagen(formato) {
-            const dependencia = document.getElementById("dependencia").value;
-            const modelo = document.getElementById("modelo").value;
-            const logoUrl = logos[dependencia][modelo];
+            const img = document.getElementById("logo");
+            if (!img) {
+                alert("Primero selecciona y muestra un logo.");
+                return;
+            }
             
-            fetch(logoUrl)
-                .then(response => response.blob())
-                .then(blob => createImageBitmap(blob))
-                .then(imageBitmap => {
-                    const canvas = document.createElement("canvas");
-                    const ctx = canvas.getContext("2d");
-                    canvas.width = imageBitmap.width;
-                    canvas.height = imageBitmap.height;
-                    ctx.drawImage(imageBitmap, 0, 0);
-                    
-                    const link = document.createElement("a");
-                    link.href = canvas.toDataURL(`image/${formato}`);
-                    link.download = `logo.${formato}`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                })
-                .catch(error => console.error("Error al descargar la imagen:", error));
+            const svgURL = img.src;
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            
+            const svgImg = new Image();
+            svgImg.crossOrigin = "anonymous";
+            svgImg.src = svgURL;
+            
+            svgImg.onload = function() {
+                canvas.width = svgImg.width || 300;
+                canvas.height = svgImg.height || 300;
+                ctx.drawImage(svgImg, 0, 0, canvas.width, canvas.height);
+                
+                const link = document.createElement("a");
+                link.href = canvas.toDataURL(`image/${formato}`);
+                link.download = `logo.${formato}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
         }
     </script>
 </body>
