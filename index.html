@@ -38,10 +38,8 @@
     <button onclick="mostrarLogo()">Ver Logo</button>
     <div id="logo-container"></div>
     
-    <label for="img-width">Ancho:</label>
-    <input type="number" id="img-width" value="500" min="100">
     <label for="img-height">Alto:</label>
-    <input type="number" id="img-height" value="500" min="100">
+    <input type="number" id="img-height" value="500" min="100" oninput="ajustarProporcion()">
     
     <button onclick="descargarLogo('svg')">Descargar SVG</button>
     <button onclick="descargarComoImagen('png')">Descargar PNG</button>
@@ -69,6 +67,14 @@
             document.getElementById("logo-container").innerHTML = `<img id="logo" src="${logoUrl}" alt="Logo" width="300">`;
         }
         
+        function ajustarProporcion() {
+            const img = document.getElementById("logo");
+            if (!img) return;
+            const height = document.getElementById("img-height").value;
+            const aspectRatio = img.naturalWidth / img.naturalHeight;
+            document.getElementById("img-width").value = Math.round(height * aspectRatio);
+        }
+        
         function descargarLogo(formato) {
             const dependencia = document.getElementById("dependencia").value;
             const modelo = document.getElementById("modelo").value;
@@ -93,8 +99,9 @@
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
             
-            const width = parseInt(document.getElementById("img-width").value, 10) || 500;
             const height = parseInt(document.getElementById("img-height").value, 10) || 500;
+            const aspectRatio = img.naturalWidth / img.naturalHeight;
+            const width = Math.round(height * aspectRatio);
             
             const svgImg = new Image();
             svgImg.crossOrigin = "anonymous";
