@@ -6,63 +6,101 @@
     <title>Gestor de Logos</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .container-custom {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #621132;
+            border-color: #621132;
+        }
+        .btn-primary:hover {
+            background-color: #b38e5d;
+            border-color: #b38e5d;
+        }
+        .btn-outline-primary {
+            color: #621132;
+            border-color: #621132;
+        }
+        .btn-outline-primary:hover {
+            background-color: #621132;
+            color: white;
+        }
+        #logo-container {
+            border: 2px solid #621132;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <div class="container mt-4">
-        <h1 class="text-center mb-4">Gestor de Logos</h1>
+<body>
 
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label for="dependencia" class="form-label">Selecciona la Dependencia:</label>
-                <select id="dependencia" class="form-select">
-                    <option value="planeacion">Planeacion</option>
-                    <option value="coemere">Coemere</option>
-                </select>
+    <div class="container mt-5">
+        <div class="container-custom">
+            <img src="logos/hidalgo-1.svg" alt="Logo" class="img-fluid mx-auto d-block mb-4" style="max-width: 250px;">
+            <h1 class="text-center mb-4">Gestor de Logos</h1>
+            <hr class="mb-4">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="dependencia" class="form-label">Selecciona la Dependencia:</label>
+                    <select id="dependencia" class="form-select">
+                        <option value="dependencia1">Dependencia 1</option>
+                        <option value="dependencia2">Dependencia 2</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="modelo" class="form-label">Selecciona el Modelo:</label>
+                    <select id="modelo" class="form-select">
+                        <option value="horizontal">Horizontal</option>
+                        <option value="vertical">Vertical</option>
+                        <option value="completo">Completo</option>
+                    </select>
+                </div>
+
+                <div class="col-12 text-center">
+                    <button class="btn btn-primary mt-3" onclick="mostrarLogo()">Ver Logo</button>
+                </div>
             </div>
 
-            <div class="col-md-6">
-                <label for="modelo" class="form-label">Selecciona el Modelo:</label>
-                <select id="modelo" class="form-select">
-                    <option value="horizontal">Horizontal</option>
-                    <option value="vertical">Vertical</option>
-                    <option value="completo">Completo</option>
-                </select>
+            <div id="logo-container" class="mt-4 text-center">
+                <p class="text-muted">Aquí se mostrará el logo seleccionado.</p>
             </div>
 
-            <div class="col-12 text-center">
-                <button class="btn btn-primary mt-3" onclick="mostrarLogo()">Ver Logo</button>
-            </div>
-        </div>
-
-        <div id="logo-container" class="mt-4 text-center p-3 border bg-white rounded">
-            <p class="text-muted">Aquí se mostrará el logo seleccionado.</p>
-        </div>
-
-        <div class="row mt-4 g-3">
-            <div class="col-md-6 text-center">
-                <label for="img-height" class="form-label">Alto (px):</label>
-                <input type="number" id="img-height" class="form-control w-50 mx-auto" value="500" min="100" oninput="ajustarProporcion()">
-            </div>
-            
-            <div class="col-md-6 text-center">
-                <button class="btn btn-outline-success me-2" onclick="descargarLogo('svg')">Descargar SVG</button>
-                <button class="btn btn-outline-danger me-2" onclick="descargarComoImagen('png')">Descargar PNG</button>
-                <button class="btn btn-outline-warning" onclick="descargarComoImagen('jpg')">Descargar JPG</button>
+            <div class="row mt-4 g-3">
+                <div class="col-md-6 text-center">
+                    <label for="img-height" class="form-label">Alto (px):</label>
+                    <input type="number" id="img-height" class="form-control w-50 mx-auto" value="500" min="100" oninput="ajustarProporcion()">
+                </div>
+                
+                <div class="col-md-6 text-center">
+                    <button class="btn btn-outline-primary me-2 mt-2" onclick="descargarLogo('svg')">Descargar SVG</button>
+                    <button class="btn btn-outline-danger me-2 mt-2" onclick="descargarComoImagen('png')">Descargar PNG</button>
+                    <button class="btn btn-outline-warning mt-2" onclick="descargarComoImagen('jpg')">Descargar JPG</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         const logos = {
-            "planeacion": {
-                "horizontal": "logos/planeacion-horizontal.svg",
-                "vertical": "logos/planeacion-vertical.svg",
-                "completo": "logos/planeacion-completo.svg"
+            "dependencia1": {
+                "horizontal": "logos/dependencia1-horizontal.svg",
+                "vertical": "logos/dependencia1-vertical.svg",
+                "completo": "logos/dependencia1-completo.svg"
             },
-            "coemere": {
-                "horizontal": "logos/coemere-horizontal.svg",
-                "vertical": "logos/coemere-vertical.svg",
-                "completo": "logos/coemere-completo.svg"
+            "dependencia2": {
+                "horizontal": "logos/dependencia2-horizontal.svg",
+                "vertical": "logos/dependencia2-vertical.svg",
+                "completo": "logos/dependencia2-completo.svg"
             }
         };
 
