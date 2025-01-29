@@ -1,13 +1,13 @@
 const logos = {
-    "dependencia1": {
-        "horizontal": "logos/dependencia1-horizontal.svg",
-        "vertical": "logos/dependencia1-vertical.svg",
-        "completo": "logos/dependencia1-completo.svg"
+    "planeacion": {
+        "horizontal": "logos/planeacion-horizontal.svg",
+        "vertical": "logos/planeacion-vertical.svg",
+        "completo": "logos/planeacion-completo.svg"
     },
-    "dependencia2": {
-        "horizontal": "logos/dependencia2-horizontal.svg",
-        "vertical": "logos/dependencia2-vertical.svg",
-        "completo": "logos/dependencia2-completo.svg"
+    "coemere": {
+        "horizontal": "logos/coemere-horizontal.svg",
+        "vertical": "logos/coemere-vertical.svg",
+        "completo": "logos/coemere-completo.svg"
     }
 };
 
