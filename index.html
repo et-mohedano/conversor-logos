@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Logos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        select, button {
+            margin: 10px;
+            padding: 10px;
+        }
+        #logo-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestor de Logos</h1>
+    <label for="dependencia">Selecciona la Dependencia:</label>
+    <select id="dependencia">
+        <option value="dependencia1">Dependencia 1</option>
+        <option value="dependencia2">Dependencia 2</option>
+    </select>
+    
+    <label for="modelo">Selecciona el Modelo:</label>
+    <select id="modelo">
+        <option value="horizontal">Horizontal</option>
+        <option value="vertical">Vertical</option>
+        <option value="completo">Completo</option>
+    </select>
+    
+    <button onclick="mostrarLogo()">Ver Logo</button>
+    <div id="logo-container"></div>
+    
+    <button onclick="descargarLogo('svg')">Descargar SVG</button>
+    <button onclick="descargarComoImagen('png')">Descargar PNG</button>
+    <button onclick="descargarComoImagen('jpg')">Descargar JPG</button>
+    
+    <script>
+        const logos = {
+            "dependencia1": {
+                "horizontal": "logos/dependencia1-horizontal.svg",
+                "vertical": "logos/dependencia1-vertical.svg",
+                "completo": "logos/dependencia1-completo.svg"
+            },
+            "dependencia2": {
+                "horizontal": "logos/dependencia2-horizontal.svg",
+                "vertical": "logos/dependencia2-vertical.svg",
+                "completo": "logos/dependencia2-completo.svg"
+            }
+        };
+
+        function mostrarLogo() {
+            const dependencia = document.getElementById("dependencia").value;
+            const modelo = document.getElementById("modelo").value;
+            const logoUrl = logos[dependencia][modelo];
+            
+            document.getElementById("logo-container").innerHTML = `<img id="logo" src="${logoUrl}" alt="Logo" width="300" crossOrigin="anonymous">`;
+        }
+        
+        function descargarLogo(formato) {
+            const dependencia = document.getElementById("dependencia").value;
+            const modelo = document.getElementById("modelo").value;
+            const logoUrl = logos[dependencia][modelo];
+            
+            const link = document.createElement("a");
+            link.href = logoUrl;
+            link.download = `logo-${dependencia}-${modelo}.${formato}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function descargarComoImagen(formato) {
+            const dependencia = document.getElementById("dependencia").value;
+            const modelo = document.getElementById("modelo").value;
+            const logoUrl = logos[dependencia][modelo];
+            
+            fetch(logoUrl)
+                .then(response => response.blob())
+                .then(blob => createImageBitmap(blob))
+                .then(imageBitmap => {
+                    const canvas = document.createElement("canvas");
+                    const ctx = canvas.getContext("2d");
+                    canvas.width = imageBitmap.width;
+                    canvas.height = imageBitmap.height;
+                    ctx.drawImage(imageBitmap, 0, 0);
+                    
+                    const link = document.createElement("a");
+                    link.href = canvas.toDataURL(`image/${formato}`);
+                    link.download = `logo.${formato}`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                })
+                .catch(error => console.error("Error al descargar la imagen:", error));
+        }
+    </script>
+</body>
+</html>
