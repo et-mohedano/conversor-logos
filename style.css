@@ -1,31 +1,64 @@
 body {
-    background-color: #f8f9fa;
     font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
+
+/* Fondo con gradiente animado */
+#background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: linear-gradient(45deg, #006847, #CE1126);
+    background-size: 400% 400%;
+    animation: cambioColor 15s ease infinite;
+}
+
+/* Animación de cambio de color */
+@keyframes cambioColor {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .container-custom {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+/* Botones */
 .btn-primary {
-    background-color: #621132;
-    border-color: #621132;
+    background-color: #006847;
+    border-color: #006847;
 }
 .btn-primary:hover {
-    background-color: #b38e5d;
-    border-color: #b38e5d;
+    background-color: #CE1126;
+    border-color: #CE1126;
 }
+
 .btn-outline-primary {
-    color: #621132;
-    border-color: #621132;
+    color: #006847;
+    border-color: #006847;
 }
 .btn-outline-primary:hover {
-    background-color: #621132;
+    background-color: #006847;
     color: white;
 }
+
 #logo-container {
-    border: 2px solid #621132;
+    border: 2px solid #006847;
     padding: 15px;
     border-radius: 8px;
     background-color: #fdfdfd;
