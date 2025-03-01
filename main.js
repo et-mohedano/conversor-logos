@@ -17,6 +17,7 @@ function mostrarLogo() {
     const logoUrl = logos[dependencia][modelo];
 
     document.getElementById("logo-container").innerHTML = `<img id="logo" src="${logoUrl}" alt="Logo" class="img-fluid" style="max-width: 300px;">`;
+    showNotification("Logo cargado", "bg-success");
 }
 
 function ajustarProporcion() {
@@ -37,6 +38,8 @@ function descargarLogo(formato) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    showNotification("Descarga iniciada", "bg-info");
 }
 
 function descargarComoImagen(formato) {
@@ -69,5 +72,78 @@ function descargarComoImagen(formato) {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        showNotification("Descarga iniciada", "bg-info");
     };
+}
+
+function copiarImagen() {
+    const img = document.getElementById("logo");
+    if (!img) {
+        alert("Primero selecciona y muestra un logo.");
+        return;
+    }
+
+    const svgURL = img.src;
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const height = parseInt(document.getElementById("img-height").value, 10) || 500;
+    const aspectRatio = img.naturalWidth / img.naturalHeight;
+    const width = Math.round(height * aspectRatio);
+
+    const svgImg = new Image();
+    svgImg.crossOrigin = "anonymous";
+    svgImg.src = svgURL;
+
+    svgImg.onload = function() {
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(svgImg, 0, 0, width, height);
+
+        canvas.toBlob(blob => {
+            if (!blob) {
+                alert("Error al copiar la imagen.");
+                return;
+            }
+            const item = new ClipboardItem({ "image/png": blob });
+            navigator.clipboard.write([item])
+                .then(() => {
+                    showNotification("Imagen copiada al portapapeles", "bg-success");
+                })
+                .catch(err => {
+                    showNotification("Error copiando imagen. Intenta nuevamente.", "bg-danger");
+                });
+        }, "image/png");
+    };
+}
+function showNotification(message, bgClass = "bg-success") {
+    const toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        console.error("No se encontró el contenedor de notificaciones.");
+        return;
+    }
+    // Crear el elemento toast
+    const toast = document.createElement('div');
+    toast.className = `toast align-items-center text-white ${bgClass} border-0`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+    toast.innerHTML = `
+      <div class="d-flex">
+        <div class="toast-body">
+          ${message}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+      </div>
+    `;
+    // Agregar el toast al contenedor
+    toastContainer.appendChild(toast);
+    // Inicializar y mostrar el Toast
+    const bsToast = new bootstrap.Toast(toast, { delay: 3000 });
+    bsToast.show();
+    // Remover el toast una vez oculto
+    toast.addEventListener('hidden.bs.toast', () => {
+        toast.remove();
+    });
 }
