@@ -45,7 +45,7 @@ function descargarLogo(formato) {
 function descargarComoImagen(formato) {
     const img = document.getElementById("logo");
     if (!img) {
-        alert("Primero selecciona y muestra un logo.");
+        showNotification("Primero selecciona y muestra un logo.", "bg-danger");
         return;
     }
 
@@ -80,7 +80,7 @@ function descargarComoImagen(formato) {
 function copiarImagen() {
     const img = document.getElementById("logo");
     if (!img) {
-        alert("Primero selecciona y muestra un logo.");
+        showNotification("Primero selecciona y muestra un logo.", "bg-danger");
         return;
     }
 
@@ -103,7 +103,7 @@ function copiarImagen() {
 
         canvas.toBlob(blob => {
             if (!blob) {
-                alert("Error al copiar la imagen.");
+                showNotification("Error al copiar la imagen.", "bg-danger");
                 return;
             }
             const item = new ClipboardItem({ "image/png": blob });
