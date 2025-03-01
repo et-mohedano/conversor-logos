@@ -8,6 +8,21 @@ const logos = {
         "horizontal": "logos/coemere-horizontal.svg",
         "vertical": "logos/coemere-vertical.svg",
         "completo": "logos/coemere-completo.svg"
+    },
+    "gobierno": {
+        "horizontal": "logos/gobierno-horizontal.svg",
+        "vertical": "logos/gobierno-vertical.svg",
+        "completo": "logos/gobierno-completo.svg"
+    },
+    "oficialia": {
+        "horizontal": "logos/oficialia-mayor-horizontal.svg",
+        "vertical": "logos/oficialia-mayor-vertical.svg",
+        "completo": "logos/oficialia-mayor-completo.svg"
+    },
+    "obras": {
+        "horizontal": "logos/obras-publicas-horizontal.svg",
+        "vertical": "logos/obras-publicas-vertical.svg",
+        "completo": "logos/obras-publicas-completo.svg"
     }
 };
 
