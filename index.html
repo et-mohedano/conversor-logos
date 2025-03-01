@@ -1,84 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestor de Logos</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Logos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fondo SVG Animado -->
-  <div id="background"></div>
-  
-  <div class="container mt-5" role="main">
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <div id="logo-header" class="text-center mb-4">
-          <img src="logos/hidalgo-1.svg" alt="Logo de inicio" class="mx-auto d-block mb-3" style="max-width: 250px;">
-          <h1 class="card-title">Gestor de Logos</h1>
-          <hr>
-        </div>
-        
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label for="dependencia" class="form-label">Selecciona la Dependencia:</label>
-            <select id="dependencia" class="form-select" aria-label="Selecciona la Dependencia">
-              <option value="planeacion">Planeación</option>
-              <option value="coemere">Coemere</option>
-            </select>
-            <small class="text-muted">Elige la dependencia deseada.</small>
-          </div>
+ <!-- Fondo SVG Animado -->
+    <div id="background"></div>
+    <div class="container mt-5">
+        <div class="container-custom">
+            <img src="logos/hidalgo-1.svg" alt="Logo" class="img-fluid mx-auto d-block mb-4" style="max-width: 250px;">
+            <h1 class="text-center mb-4">Gestor de Logos</h1>
+            <hr class="mb-4">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="dependencia" class="form-label">Selecciona la Dependencia:</label>
+                    <select id="dependencia" class="form-select">
+                        <option value="planeacion">Planeación</option>
+                        <option value="coemere">Coemere</option>
+                    </select>
+                </div>
 
-          <div class="col-md-6">
-            <label for="modelo" class="form-label">Selecciona el Modelo:</label>
-            <select id="modelo" class="form-select" aria-label="Selecciona el Modelo">
-              <option value="horizontal">Horizontal</option>
-              <option value="vertical">Vertical</option>
-              <option value="completo">Completo</option>
-            </select>
-            <small class="text-muted">Selecciona el tipo de logo.</small>
-          </div>
+                <div class="col-md-6">
+                    <label for="modelo" class="form-label">Selecciona el Modelo:</label>
+                    <select id="modelo" class="form-select">
+                        <option value="horizontal">Horizontal</option>
+                        <option value="vertical">Vertical</option>
+                        <option value="completo">Completo</option>
+                    </select>
+                </div>
 
-          <div class="col-12 text-center">
-            <button class="btn btn-primary mt-3" onclick="mostrarLogo()">Ver Logo</button>
-          </div>
-        </div>
+                <div class="col-12 text-center">
+                    <button class="btn btn-primary mt-3" onclick="mostrarLogo()">Ver Logo</button>
+                </div>
+            </div>
 
-        <div id="logo-container" class="mt-4 text-center">
-          <p class="text-muted">Aquí se mostrará el logo seleccionado.</p>
-        </div>
+            <div id="logo-container" class="mt-4 text-center">
+                <p class="text-muted">Aquí se mostrará el logo seleccionado.</p>
+            </div>
 
-        <div class="row mt-4 g-3 align-items-center">
-          <div class="col-md-6 text-center">
-            <label for="img-height-range" class="form-label">Alto (px): <span id="img-height-value">500</span></label>
-            <input type="range" id="img-height-range" class="form-range w-50 mx-auto" min="100" max="1000" step="10" value="500" oninput="actualizarAlturaValor(); ajustarProporcion();">
-          </div>
-          <div class="col-md-6 text-center">
-            <button class="btn btn-outline-primary me-2 mt-2" onclick="descargarLogo('svg')">Descargar SVG</button>
-            <button class="btn btn-outline-danger me-2 mt-2" onclick="descargarComoImagen('png')">Descargar PNG</button>
-            <button class="btn btn-outline-warning me-2 mt-2" onclick="descargarComoImagen('jpg')">Descargar JPG</button>
-            <button class="btn btn-outline-info mt-2" onclick="copiarComoImagen()">Copiar PNG</button>
-          </div>
+            <div class="row mt-4 g-3">
+                <div class="col-md-6 text-center">
+                    <label for="img-height" class="form-label">Alto (px):</label>
+                    <input type="number" id="img-height" class="form-control w-50 mx-auto" value="500" min="100" oninput="ajustarProporcion()">
+                </div>
+                
+                <div class="col-md-6 text-center">
+                    <button class="btn btn-outline-primary me-2 mt-2" onclick="descargarLogo('svg')">Descargar SVG</button>
+                    <button class="btn btn-outline-danger me-2 mt-2" onclick="descargarComoImagen('png')">Descargar PNG</button>
+                    <button class="btn btn-outline-warning mt-2" onclick="descargarComoImagen('jpg')">Descargar JPG</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  
-  <!-- Toast container para notificaciones -->
-  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast align-items-center text-white bg-secondary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body" id="toast-message">
-          <!-- Mensaje de notificación -->
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
-      </div>
-    </div>
-  </div>
-  
-  <script src="main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
