@@ -2,11 +2,11 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-}
-
-/* Fondo con gradiente animado */
-#background {
+    overflow-x: hidden;
+  }
+  
+  /* Fondo con gradiente animado */
+  #background {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -16,50 +16,69 @@ body {
     background: linear-gradient(45deg, #006847, #CE1126);
     background-size: 400% 400%;
     animation: cambioColor 15s ease infinite;
-}
-
-/* Animación de cambio de color */
-@keyframes cambioColor {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-.container-custom {
-    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  @keyframes cambioColor {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Estilos para la tarjeta */
+  .card {
+    border: none;
+    border-radius: 10px;
+  }
+  
+  .card-body {
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Botones */
-.btn-primary {
+  }
+  
+  /* Botones personalizados */
+  .btn-primary {
     background-color: #006847;
     border-color: #006847;
-}
-.btn-primary:hover {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn-primary:hover {
     background-color: #CE1126;
     border-color: #CE1126;
-}
-
-.btn-outline-primary {
+  }
+  
+  .btn-outline-primary {
     color: #006847;
     border-color: #006847;
-}
-.btn-outline-primary:hover {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .btn-outline-primary:hover {
     background-color: #006847;
     color: white;
-}
-
-#logo-container {
+  }
+  
+  .btn-outline-danger, .btn-outline-warning, .btn-outline-info {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Logo container styling */
+  #logo-container {
     border: 2px solid #006847;
     padding: 15px;
     border-radius: 8px;
     background-color: #fdfdfd;
-}
+    min-height: 150px;
+  }
+  
+  /* Toast customization */
+  .toast {
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 576px) {
+    .w-50 {
+      width: 100% !important;
+    }
+  }
+  
