@@ -2,6 +2,7 @@ const logos = {
     "hidalgo": {
         "horizontal": "logos/hidalgo-horizontal.svg",
         "vertical": "logos/hidalgo-vertical.svg",
+        "completo": "logos/hidalgo-completo.svg"
     },
     "planeacion": {
         "horizontal": "logos/planeacion-horizontal.svg",
